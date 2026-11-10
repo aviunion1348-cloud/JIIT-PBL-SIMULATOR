@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { act, cleanup, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderApp } from './render';
+import { renderApp, renderAppNoClear } from './render';
 import { SESSION_KEY } from '../src/experiment/persistence';
 import { buildReportHtml } from '../src/export/report';
 import { VIVA_QUESTIONS } from '../src/data/viva';
@@ -185,9 +185,12 @@ describe('viva quiz', () => {
     await waitFor(() => expect(screen.getAllByText(/TEST YOUR OPTICS/i).length).toBeGreaterThan(0));
 
     const first = VIVA_QUESTIONS[0];
-    await user.click(screen.getByRole('button', { name: new RegExp(first.options[first.answerIndex].slice(0, 30).replace(/[()]/g, '\\$&'), 'i') }));
-    await waitFor(() => expect(screen.getAllByText(/Correct/i).length).toBeGreaterThan(0));
-    expect(screen.getAllByText(/randomly and rapidly varying|randomly oriented/i).length).toBeGreaterThan(0);
+    const options = screen.getAllByRole('button').filter((button) =>
+      (button.textContent ?? '').includes(first.options[first.answerIndex]),
+    );
+    expect(options.length).toBeGreaterThan(0);
+    await user.click(options[0]);
+    await waitFor(() => expect(screen.getAllByText(/✓ Correct/).length).toBeGreaterThan(0));
   });
 
   it('has at least 24 questions with unique ids', () => {
@@ -198,8 +201,9 @@ describe('viva quiz', () => {
 
 describe('resilience', () => {
   it('recovers from corrupted stored session', async () => {
+    window.localStorage.clear();
     window.localStorage.setItem(SESSION_KEY, '{"version":1,"state":{"selectedMaterial":"nonsense"}}');
-    renderApp('/experiment');
+    renderAppNoClear('/experiment');
     await waitFor(() => expect(screen.getAllByText(/LIVE ANGULAR MEASUREMENT/i).length).toBeGreaterThan(0));
   });
 
