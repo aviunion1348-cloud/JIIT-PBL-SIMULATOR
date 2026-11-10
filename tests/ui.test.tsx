@@ -34,13 +34,46 @@ describe('every route renders real content', () => {
   }
 });
 
+
+/** Renders the portal and lifts the boot veil via its own SKIP control. */
+async function mountPortal() {
+  const user = userEvent.setup();
+  renderApp('/');
+  const region = await screen.findByRole('region', { name: /laboratory portal navigator/i });
+  const skip = screen.getByRole('button', { name: /^skip$/i });
+  await user.click(skip);
+  await waitFor(() => expect(screen.getByRole('navigation', { name: /laboratory sections/i })).toBeInTheDocument());
+  return { user, region };
+}
+
 describe('navigation', () => {
   it('moves between sections and reflects the active route', async () => {
     const user = userEvent.setup();
-    renderApp('/');
+    renderApp('/apparatus');
     const nav = screen.getByRole('navigation', { name: /laboratory sections/i });
     await user.click(within(nav).getByRole('link', { name: /THEORY/i }));
-    await waitFor(() => expect(screen.getAllByText(/POLARISATION AT THE INTERFACE/i).length).toBeGreaterThan(0));
+    // Wait for page-specific content, not the nav label (which is always present).
+    await waitFor(() =>
+      expect(screen.getByRole('heading', { level: 1, name: /POLARISATION AT THE INTERFACE/i })).toBeInTheDocument(),
+    );
+  });
+
+  it('the portal is a full-viewport navigator with its own section rail', async () => {
+    await mountPortal();
+    const rail = screen.getByRole('navigation', { name: /laboratory sections/i });
+    // All eight sections are reachable, and only one is current.
+    expect(within(rail).getAllByRole('button')).toHaveLength(8);
+    expect(within(rail).getAllByRole('button', { name: /BREWSTER'S LAW/i }).length).toBe(1);
+  });
+
+  it('walks the destination ring with the keyboard', async () => {
+    const { user } = await mountPortal();
+    const rail = screen.getByRole('navigation', { name: /laboratory sections/i });
+    const theoryButton = within(rail).getByRole('button', { name: /THEORY/i });
+    await user.click(theoryButton);
+    // The reveal is a real animation (520 ms close + 1050 ms open), so allow it
+    // to finish rather than asserting on a fixed sleep.
+    await waitFor(() => expect(theoryButton).toHaveAttribute('aria-current', 'true'), { timeout: 5000 });
   });
 });
 
@@ -73,7 +106,8 @@ describe('live experiment interactions', () => {
   it('starts the experiment, turns the laser on, and reads live values', async () => {
     const user = userEvent.setup();
     renderApp('/experiment');
-    await waitFor(() => expect(screen.getAllByText(/LIVE ANGULAR MEASUREMENT/i).length).toBeGreaterThan(0));
+    // Wait for the control stack, which only exists once the lazy page mounts.
+    await waitFor(() => expect(screen.getAllByText(/SPECIMEN & MEDIUM/i).length).toBeGreaterThan(0));
 
     // Laser starts off, detector must not show a plausible reading.
     expect(screen.getAllByText(/NO ACQUISITION/i).length).toBeGreaterThan(0);
@@ -120,7 +154,7 @@ describe('live experiment interactions', () => {
   it('captures a theoretical measurement only when the laser is live', async () => {
     const user = userEvent.setup();
     renderApp('/experiment');
-    await waitFor(() => expect(screen.getAllByText(/LIVE ANGULAR MEASUREMENT/i).length).toBeGreaterThan(0));
+    await waitFor(() => expect(screen.getAllByText(/SPECIMEN & MEDIUM/i).length).toBeGreaterThan(0));
 
     const capture = screen.getByRole('button', { name: /CAPTURE THEORETICAL READING/i });
     expect(capture).toBeDisabled();
@@ -134,7 +168,7 @@ describe('live experiment interactions', () => {
   it('clears and auto-assembles the optical train', async () => {
     const user = userEvent.setup();
     renderApp('/experiment');
-    await waitFor(() => expect(screen.getAllByText(/LIVE ANGULAR MEASUREMENT/i).length).toBeGreaterThan(0));
+    await waitFor(() => expect(screen.getAllByText(/SPECIMEN & MEDIUM/i).length).toBeGreaterThan(0));
 
     await user.click(screen.getByRole('button', { name: /CLEAR RAIL/i }));
     await waitFor(() => expect(screen.getAllByText(/TRAIN INCOMPLETE/i).length).toBeGreaterThan(0));

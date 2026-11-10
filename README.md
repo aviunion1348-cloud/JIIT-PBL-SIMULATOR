@@ -36,7 +36,7 @@ No environment variables, no API keys, no backend, no database, no analytics.
 
 | Route | Section | Contents |
 |---|---|---|
-| `/` | **Lab Home** | Cinematic intro, canvas optical aperture, live solution, three reported angles, working route |
+| `/` | **The Optical Portal** | Full-viewport canvas navigator: eight sections, four real subtopics each, travel transitions, direct deep links |
 | `/theory` | **Polarisation at the Interface** | 9 sections with live diagrams, Malus demonstration, interactive ray bench |
 | `/apparatus` | **The Optical Train** | All 7 source components, custom SVG portraits, 500 mm rail map |
 | `/experiment` | **Live Angular Measurement** | 3D optical bench, full control set, component assembly, live readouts, detector model |
@@ -44,6 +44,51 @@ No environment variables, no API keys, no backend, no database, no analytics.
 | `/analysis` | **Current Response / Incidence Angle** | Three data-driven charts, comparison view, interpretation |
 | `/results` | **The Polarising Condition** | 58.1° / 56.7° / 57.51°, physical explanation, printable report |
 | `/viva` | **Test Your Optics** | 24 experiment-specific questions, study and test modes, scoring, review |
+
+
+### The Optical Portal (`src/portal/`)
+
+The home route is a single-viewport navigator rather than a scrolling page. A
+canvas aperture — a rounded rectangle sampled into 44 points and projected
+through a fake perspective with focal length 850 — holds a live optical scene.
+It tilts toward the pointer (clamped to ±16.5° / ±18.7°, relaxing to zero as it
+expands), and travelling expands it until it covers the viewport, commits the
+next section, and opens a fresh aperture.
+
+Nothing is decorative. Every one of the eight destinations is a real route,
+and its four subtopics are real topics of that section:
+
+| File | Responsibility |
+|---|---|
+| `src/data/portal.ts` | Destination model: route, accent, scene kind, specimen preview, four subtopics, CTA label |
+| `src/portal/sceneRenderer.ts` | Eight procedurally drawn scenes (pure Canvas 2D, no remote media) |
+| `src/portal/maskEngine.ts` | Rounded-rect sampling, perspective projection, tilt smoothing, easing |
+| `src/portal/usePortalExperience.ts` | Lifecycle: boot counter, render loop, pointer tilt, travel |
+| `src/portal/PortalExperience.tsx` | Layout, keyboard ring, live announcements, deep links |
+
+**No runtime CDN.** The reference interaction this is adapted from sampled remote
+3D video; here every scene is drawn from the same physics result object the rest
+of the app uses, so the portal works offline and cannot drift from the data. The
+observations scene plots the exact Fresnel pair for the specimen, so R⟂ touches
+zero precisely at θB; the results scene draws the three reported angles on a
+graduated quadrant.
+
+**Usable, not just pretty:**
+
+- The boot counter has a visible **SKIP** control, and choosing a section during
+  the boot honours the choice immediately — the intro can never trap you.
+- `SKIP TO THE BENCH` in the header goes straight to `/experiment`, independent
+  of any animation.
+- Every destination carries a direct link (`href`), so `/theory` and friends work
+  as real deep links with no portal visit required.
+- Arrow keys walk the ring; the rail is a list of real buttons with
+  `aria-current`; destination changes are announced through a live region.
+- Below 980 px the section rail becomes a horizontal scrollable strip instead of
+  disappearing, so narrow screens can still jump to any section.
+- Readiness follows the mask, not a timer, plus a timeout guard — a throttled
+  tab can never leave the travel button disabled.
+- `prefers-reduced-motion` disables tilt, the custom cursor and all entrance
+  animation, and shortens the transitions.
 
 ### The physics engine (`src/physics/`)
 
