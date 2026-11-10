@@ -1,0 +1,105 @@
+/* ============================================================
+   BREWSTER'S LAW LAB — design tokens
+   Palette: midnight ink · indigo depth · ice cyan · laser red · amber
+   ============================================================ */
+:root {
+  /* Environment */
+  --ink-950: #05070f;
+  --ink-900: #070b18;
+  --ink-850: #0a1022;
+  --ink-800: #0d152b;
+  --ink-750: #111c38;
+  --ink-700: #162346;
+  --ink-600: #1d2d57;
+
+  /* Optical accents */
+  --cyan-100: #e8fbff;
+  --cyan-200: #bff2ff;
+  --cyan-300: #7fe4fb;
+  --cyan-400: #3fd0f0;
+  --cyan-500: #17b4d8;
+  --cyan-600: #0f8aa8;
+
+  --indigo-300: #9fb4ff;
+  --indigo-400: #7386f5;
+  --indigo-500: #4f5fd8;
+
+  --laser-300: #ff9d9d;
+  --laser-400: #ff5f5f;
+  --laser-500: #ee2f2f;
+  --laser-600: #c21515;
+  --laser-glow: 255 60 60;
+
+  --amber-200: #ffe7b0;
+  --amber-300: #ffd479;
+  --amber-400: #f7b73d;
+  --amber-500: #d9931b;
+
+  --green-400: #4fe0a6;
+
+  /* Typography */
+  --text-strong: #f4f8ff;
+  --text-primary: #dbe6f7;
+  --text-secondary: #9fb0cc;
+  --text-muted: #6f809c;
+  --text-faint: #4c5a73;
+
+  /* Surfaces */
+  --glass-veil: rgba(12, 20, 40, 0.62);
+  --glass-veil-strong: rgba(9, 15, 32, 0.86);
+  --glass-edge: rgba(127, 228, 251, 0.14);
+  --glass-edge-strong: rgba(127, 228, 251, 0.28);
+  --hairline: rgba(143, 170, 210, 0.14);
+  --hairline-strong: rgba(143, 170, 210, 0.26);
+
+  /* Type scale */
+  /* Locally bundled families with deliberate system fallbacks. */
+  --font-display: 'Barlow Condensed', 'Archivo Narrow', 'Roboto Condensed',
+    'Arial Narrow', 'Helvetica Neue', Impact, system-ui, sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, 'Cascadia Mono', Menlo,
+    Consolas, monospace;
+
+  --step--1: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+  --step-0: clamp(0.86rem, 0.82rem + 0.18vw, 0.95rem);
+  --step-1: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
+  --step-2: clamp(1.2rem, 1.05rem + 0.7vw, 1.55rem);
+  --step-3: clamp(1.5rem, 1.2rem + 1.4vw, 2.15rem);
+  --step-4: clamp(2rem, 1.4rem + 2.6vw, 3.2rem);
+  --step-5: clamp(2.6rem, 1.5rem + 5vw, 5.6rem);
+  --step-6: clamp(3.2rem, 1.2rem + 8vw, 8.5rem);
+
+  /* Space */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 22px;
+  --sp-6: 30px;
+  --sp-7: 44px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  /* Radii */
+  --r-xs: 3px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 140ms;
+  --dur-base: 260ms;
+  --dur-slow: 620ms;
+
+  --shadow-panel: 0 30px 80px -40px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  --glow-cyan: 0 0 24px rgba(63, 208, 240, 0.35);
+  --glow-red: 0 0 22px rgba(255, 60, 60, 0.45);
+
+  --nav-h: 68px;
+  --shell-max: 1680px;
+}

@@ -1,0 +1,97 @@
+/* Motion system — every animation is purposeful and reduced-motion safe. */
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.82); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sweep-line {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes scan-y {
+  0% { transform: translateY(-110%); opacity: 0; }
+  12% { opacity: 0.7; }
+  88% { opacity: 0.7; }
+  100% { transform: translateY(110%); opacity: 0; }
+}
+
+@keyframes beam-pulse {
+  0%, 100% { opacity: 0.86; }
+  50% { opacity: 1; }
+}
+
+@keyframes dial-settle {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(0); }
+}
+
+@keyframes boot-reveal {
+  from { opacity: 0; transform: scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes title-rise {
+  from { opacity: 0; transform: translate3d(0, 42px, 0) rotate(1.2deg); filter: blur(9px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+@keyframes beam-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.anim-fade-up {
+  animation: fade-up var(--dur-slow) var(--ease-out) both;
+}
+.anim-fade-in {
+  animation: fade-in var(--dur-base) var(--ease-out) both;
+}
+.anim-title {
+  animation: title-rise 900ms var(--ease-out) both;
+}
+
+/* Page transition wrapper */
+.page-enter {
+  animation: fade-up 420ms var(--ease-out) both;
+}
+
+/* Route-level progress rail */
+.route-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 80;
+  overflow: hidden;
+  pointer-events: none;
+}
+.route-progress span {
+  display: block;
+  height: 100%;
+  width: 38%;
+  background: linear-gradient(90deg, transparent, var(--cyan-400), transparent);
+  animation: sweep-line 1.1s var(--ease-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .page-enter { animation: none; }
+}

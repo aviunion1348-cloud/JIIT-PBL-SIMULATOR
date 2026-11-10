@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'arena/**']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Typecheck, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Typecheck
+        id: typecheck
+        run: npm run typecheck
+
+      - name: Test
+        id: test
+        run: npm run test
+        env:
+          CI: 'true'
+          # Vitest's github-actions reporter surfaces each failure as an inline
+          # annotation, which stays readable even when job logs are unavailable.
+          GITHUB_ACTIONS: 'true'
+
+      - name: Build
+        id: build
+        if: success()
+        run: npm run build
+
+      - name: Summarise
+        if: always()
+        run: |
+          {
+            echo "### CI summary"
+            echo ""
+            echo "| Gate | Outcome |"
+            echo "| --- | --- |"
+            echo "| Typecheck | \`${{ steps.typecheck.outcome }}\` |"
+            echo "| Test | \`${{ steps.test.outcome }}\` |"
+            echo "| Build | \`${{ steps.build.outcome }}\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload production build
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7

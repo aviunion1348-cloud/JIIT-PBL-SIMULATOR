@@ -1,0 +1,84 @@
+.viva { max-width: 1000px; margin: 0 auto; }
+.viva__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-3); }
+.viva__modes { display: flex; gap: 4px; }
+.viva__modes .chip { cursor: pointer; }
+.viva__modes .chip.is-active { border-color: var(--cyan-400); color: var(--cyan-200); background: rgba(63, 208, 240, 0.14); }
+.viva__score-mini { font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.12em; }
+
+.viva__progress { height: 2px; background: rgba(143, 170, 210, 0.14); border-radius: 2px; overflow: hidden; margin-bottom: var(--sp-5); }
+.viva__progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan-600), var(--cyan-300)); transition: width 260ms var(--ease-out); }
+
+.viva__card { padding: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-4); }
+.viva__card-head { display: flex; gap: 6px; flex-wrap: wrap; }
+.viva__question { font-size: var(--step-2); line-height: 1.35; color: var(--text-strong); font-family: var(--font-body); font-weight: 500; }
+
+.viva__options { display: flex; flex-direction: column; gap: 8px; }
+.viva__option {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: 13px 16px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline);
+  background: rgba(10, 17, 32, 0.6);
+  text-align: left;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  transition: border-color var(--dur-fast), background var(--dur-fast), color var(--dur-fast);
+}
+.viva__option:hover:not(:disabled) { border-color: var(--glass-edge-strong); color: var(--text-primary); background: rgba(22, 38, 68, 0.75); }
+.viva__option:disabled { cursor: default; }
+.viva__option-letter {
+  flex: 0 0 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--hairline-strong);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+.viva__option.is-selected { border-color: var(--cyan-400); color: var(--text-strong); background: rgba(63, 208, 240, 0.12); }
+.viva__option.is-selected .viva__option-letter { border-color: var(--cyan-400); color: var(--cyan-200); }
+.viva__option.is-correct { border-color: rgba(79, 224, 166, 0.55); background: rgba(79, 224, 166, 0.12); color: #d8fff0; }
+.viva__option.is-correct .viva__option-letter { border-color: var(--green-400); color: var(--green-400); }
+.viva__option.is-wrong { border-color: rgba(238, 47, 47, 0.5); background: rgba(238, 47, 47, 0.1); color: #ffd9d9; }
+.viva__option.is-wrong .viva__option-letter { border-color: var(--laser-400); color: var(--laser-300); }
+
+.viva__feedback {
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline);
+  background: rgba(6, 11, 22, 0.7);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+.viva__feedback.is-correct { border-color: rgba(79, 224, 166, 0.4); background: rgba(79, 224, 166, 0.07); }
+.viva__feedback.is-wrong { border-color: rgba(238, 47, 47, 0.35); background: rgba(238, 47, 47, 0.06); }
+.viva__feedback-title { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 4px; color: var(--text-primary); }
+
+.viva__nav { display: flex; justify-content: space-between; gap: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--hairline); }
+
+.viva__result { padding: var(--sp-6); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-5); }
+.viva__score { font-size: var(--step-5); color: var(--cyan-200); line-height: 1; }
+.viva__score span { font-size: 0.35em; color: var(--text-muted); }
+.viva__percent { color: var(--amber-300); letter-spacing: 0.16em; font-size: 0.8rem; }
+.viva__result-actions { display: flex; gap: var(--sp-3); flex-wrap: wrap; justify-content: center; }
+
+.viva__review { display: flex; flex-direction: column; gap: var(--sp-3); }
+.viva__review-item {
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  border: 1px solid var(--hairline);
+  background: rgba(9, 15, 30, 0.6);
+}
+.viva__review-item.is-correct { border-left: 2px solid var(--green-400); }
+.viva__review-item.is-wrong { border-left: 2px solid var(--laser-400); }
+.viva__review-question { font-size: 0.88rem; color: var(--text-strong); margin: var(--sp-2) 0; }
+.viva__review-answer { color: var(--green-400); }
+
+@media (max-width: 560px) {
+  .viva__card { padding: var(--sp-4); }
+}

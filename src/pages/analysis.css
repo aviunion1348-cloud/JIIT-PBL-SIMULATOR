@@ -1,0 +1,35 @@
+.analysis__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-4); }
+.analysis__modes { display: flex; gap: 4px; flex-wrap: wrap; }
+.analysis__modes .chip { cursor: pointer; }
+.analysis__modes .chip:hover { color: var(--text-primary); border-color: var(--glass-edge-strong); }
+.analysis__modes .chip.is-active { border-color: var(--cyan-400); color: var(--cyan-200); background: rgba(63, 208, 240, 0.14); }
+.analysis__toggle { display: inline-flex; align-items: center; gap: 7px; font-size: 0.72rem; color: var(--text-secondary); cursor: pointer; }
+.analysis__toggle input { accent-color: var(--cyan-400); width: 14px; height: 14px; }
+
+.analysis__chart-panel { margin-bottom: var(--sp-5); }
+.analysis__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); margin-bottom: var(--sp-5); }
+.analysis__card { padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
+.analysis__card-rows { display: flex; flex-direction: column; gap: var(--sp-3); }
+.analysis__card-rows > div { display: flex; flex-direction: column; gap: 1px; padding-bottom: var(--sp-2); border-bottom: 1px solid rgba(143, 170, 210, 0.08); }
+.analysis__card-rows > div:last-child { border-bottom: none; }
+.analysis__card-value { font-size: 1.2rem; color: var(--text-strong); }
+.analysis__card-value--fit { color: var(--indigo-300); }
+.analysis__card-value--reported { color: var(--amber-300); }
+.analysis__card-note { margin-top: auto; }
+
+.analysis__interpretation-body { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-6); }
+.analysis__sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--cyan-300);
+  margin-bottom: var(--sp-2);
+  margin-top: var(--sp-4);
+}
+.analysis__sub:first-child { margin-top: 0; }
+.analysis__interpretation-body p { font-size: 0.84rem; color: var(--text-secondary); }
+
+@media (max-width: 1000px) {
+  .analysis__grid { grid-template-columns: minmax(0, 1fr); }
+  .analysis__interpretation-body { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,71 @@
+.aperture { width: 100%; }
+.aperture__frame {
+  position: relative;
+  border-radius: 28px;
+  padding: 10px;
+  background:
+    linear-gradient(150deg, rgba(127, 228, 251, 0.26), rgba(29, 45, 87, 0.1) 45%, rgba(247, 183, 61, 0.14)),
+    rgba(6, 10, 20, 0.6);
+  box-shadow:
+    0 40px 120px -60px rgba(0, 0, 0, 1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.aperture__glass {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  min-height: 260px;
+  background:
+    radial-gradient(70% 70% at 50% 46%, rgba(21, 44, 82, 0.7), transparent 72%),
+    linear-gradient(180deg, #060a15, #04070f);
+  border: 1px solid rgba(127, 228, 251, 0.18);
+}
+.aperture__canvas { display: block; width: 100%; height: 100%; }
+
+.aperture__corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(127, 228, 251, 0.55);
+  pointer-events: none;
+}
+.aperture__corner--tl { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.aperture__corner--tr { top: 10px; right: 10px; border-width: 1px 1px 0 0; }
+.aperture__corner--bl { bottom: 10px; left: 10px; border-width: 0 0 1px 1px; }
+.aperture__corner--br { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+.aperture__hud {
+  position: absolute;
+  inset: auto 18px 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.aperture__hud-live { color: var(--amber-300); letter-spacing: 0.1em; }
+
+.aperture__fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  height: 100%;
+  padding: var(--sp-5);
+  text-align: center;
+}
+.aperture__fallback-value {
+  font-size: var(--step-3);
+  color: var(--cyan-200);
+}
+.aperture--still .aperture__frame { transition: none; }
+
+@media (max-width: 760px) {
+  .aperture__frame { padding: 6px; border-radius: 18px; }
+  .aperture__glass { aspect-ratio: 4 / 3; border-radius: 14px; }
+}

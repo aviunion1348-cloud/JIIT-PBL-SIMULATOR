@@ -1,0 +1,61 @@
+.assembly { display: flex; flex-direction: column; gap: var(--sp-3); }
+.assembly__head { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-2); }
+.assembly__palette { display: flex; flex-wrap: wrap; gap: 4px; }
+.assembly__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline);
+  background: rgba(10, 17, 32, 0.7);
+  cursor: grab;
+  transition: border-color var(--dur-fast), background var(--dur-fast), transform var(--dur-fast);
+}
+.assembly__chip:hover { border-color: var(--glass-edge-strong); transform: translateY(-1px); }
+.assembly__chip.is-armed { border-color: var(--amber-400); background: rgba(247, 183, 61, 0.14); }
+.assembly__chip-index { font-size: 0.54rem; color: var(--cyan-500); }
+.assembly__chip-name { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.1em; color: var(--text-secondary); }
+.assembly__chip.is-armed .assembly__chip-name { color: var(--amber-200); }
+.assembly__chip-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(143, 170, 210, 0.3); }
+.assembly__chip.is-placed .assembly__chip-dot { background: var(--green-400); box-shadow: 0 0 8px rgba(79, 224, 166, 0.8); }
+
+.assembly__rail {
+  position: relative;
+  height: 54px;
+  border-radius: var(--r-sm);
+  border: 1px dashed var(--hairline-strong);
+  background: linear-gradient(180deg, rgba(18, 30, 56, 0.55), rgba(8, 14, 28, 0.7));
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+}
+.assembly__rail.is-armed { border-color: var(--amber-400); background: rgba(247, 183, 61, 0.06); }
+.assembly__rail-slots { display: grid; grid-template-columns: repeat(10, 1fr); height: 100%; }
+.assembly__slot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  border-right: 1px solid rgba(143, 170, 210, 0.08);
+  font-size: 0.5rem;
+  color: var(--text-faint);
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.assembly__slot:last-child { border-right: none; }
+.assembly__slot:hover { background: rgba(63, 208, 240, 0.1); color: var(--cyan-300); }
+.assembly__placed {
+  position: absolute;
+  top: 8px;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(63, 208, 240, 0.9);
+  color: #041018;
+  font-size: 0.54rem;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(63, 208, 240, 0.7);
+  pointer-events: none;
+}
+.assembly__actions { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
