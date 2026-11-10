@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#05070f" />
+    <title>Brewster's Law Lab — Interactive Optical Physics Laboratory</title>
+    <meta
+      name="description"
+      content="An interactive virtual optics laboratory that verifies Brewster's law and determines the Brewster angle for Topaz, Crown and Flint glass using the supplied experimental observations."
+    />
+    <meta name="author" content="Devansh Tripathi — JIIT Noida Physics PBL" />
+    <meta property="og:title" content="Brewster's Law Lab" />
+    <meta
+      property="og:description"
+      content="Drive a real Brewster-angle optical bench: Fresnel physics, live polarisation, and the complete source observation record."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      /* Deliberate non-black startup background — no black-screen flash. */
+      html { background: #05070f; }
+      #boot {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(1200px 700px at 70% 0%, #0f2040, transparent 62%),
+          linear-gradient(180deg, #070b18, #04060d);
+        color: #9fb0cc;
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+        font-size: 11px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        transition: opacity 400ms ease;
+        z-index: 999;
+      }
+      #boot[hidden] { display: none; }
+      #boot span::after {
+        content: '';
+        display: block;
+        margin: 14px auto 0;
+        width: 42px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #3fd0f0, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="boot"><span>CALIBRATING OPTICAL BENCH</span></div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Remove the boot veil as soon as React paints, and never let it linger.
+      window.addEventListener('load', function () {
+        var boot = document.getElementById('boot');
+        if (boot) {
+          boot.style.opacity = '0';
+          setTimeout(function () { boot.hidden = true; }, 420);
+        }
+      });
+      setTimeout(function () {
+        var boot = document.getElementById('boot');
+        if (boot) boot.hidden = true;
+      }, 4000);
+    </script>
+    <noscript>
+      <div style="padding: 40px; font-family: system-ui; color: #dbe6f7">
+        <h1>Brewster's Law Lab</h1>
+        <p>This interactive laboratory needs JavaScript. The source observations are:</p>
+        <p>Topaz Glass 58.1°, Crown Glass 56.7°, Flint Glass 57.51°.</p>
+      </div>
+    </noscript>
+  </body>
+</html>

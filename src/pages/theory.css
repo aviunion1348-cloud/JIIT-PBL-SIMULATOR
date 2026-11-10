@@ -1,0 +1,92 @@
+.page__head { margin-bottom: var(--sp-7); max-width: 900px; }
+.page__title { font-size: var(--step-4); margin: var(--sp-3) 0 var(--sp-3); }
+
+.theory__layout { display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: clamp(24px, 3.4vw, 54px); align-items: start; }
+
+.theory__toc { position: sticky; top: calc(var(--nav-h) + 54px); }
+.theory__toc ol { margin-top: var(--sp-3); display: flex; flex-direction: column; gap: 2px; }
+.theory__toc a {
+  display: flex;
+  gap: 10px;
+  padding: 6px 8px;
+  border-left: 1px solid var(--hairline);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  transition: color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast);
+}
+.theory__toc a:hover { color: var(--cyan-200); border-color: var(--cyan-500); background: rgba(63, 208, 240, 0.06); }
+.theory__toc .mono { color: var(--text-faint); font-size: 0.62rem; }
+
+.theory__body { display: flex; flex-direction: column; gap: var(--sp-8); min-width: 0; }
+.theory-block { scroll-margin-top: calc(var(--nav-h) + 60px); }
+.theory-block__title {
+  font-size: var(--step-2);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--hairline);
+  color: var(--text-strong);
+}
+.theory-block__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--sp-5); align-items: start; }
+.theory-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); }
+
+.theory-card { padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
+.theory-card p { font-size: 0.84rem; color: var(--text-secondary); }
+.theory-card__value { color: var(--cyan-300); font-size: 0.74rem; }
+.theory-value { font-size: var(--step-4); color: var(--cyan-200); line-height: 1; }
+
+.theory-figure { padding: var(--sp-4); }
+.theory-figure__svg { width: 100%; height: auto; margin-top: var(--sp-2); }
+.fig-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  fill: var(--text-muted);
+  text-transform: uppercase;
+}
+.fig-tag--cyan { fill: var(--cyan-300); }
+.fig-tag--amber { fill: var(--amber-300); }
+.fig-tag--red { fill: #ff9d9d; }
+
+.theory-interactive { padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-4); }
+.theory-interactive__controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); }
+.theory-interactive__readouts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-2); grid-column: 1 / -1; }
+.readout--tight { padding: 8px 10px; }
+.readout--tight .readout__value { font-size: 0.92rem; }
+
+.malus-meter { display: flex; flex-direction: column; gap: 6px; }
+.malus-meter__bar { height: 6px; background: rgba(143, 170, 210, 0.14); border-radius: 3px; overflow: hidden; }
+.malus-meter__bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--amber-500), var(--amber-300)); transition: width 180ms var(--ease-out); }
+
+.brewster-proof { padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-4); margin-top: var(--sp-4); }
+.brewster-proof__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); }
+.brewster-proof__value { font-size: var(--step-2); color: var(--text-strong); line-height: 1.1; }
+.brewster-proof__value.is-zero { color: var(--green-400); }
+.brewster-proof__verdict {
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-sm);
+  background: rgba(143, 170, 210, 0.08);
+  border: 1px solid var(--hairline);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.brewster-proof__verdict.is-matched {
+  border-color: rgba(79, 224, 166, 0.4);
+  background: rgba(79, 224, 166, 0.08);
+  color: var(--green-400);
+}
+
+@media (max-width: 1080px) {
+  .theory__layout { grid-template-columns: minmax(0, 1fr); }
+  .theory__toc { position: static; }
+  .theory__toc ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .theory-block__grid { grid-template-columns: minmax(0, 1fr); }
+  .theory-interactive__controls { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .theory-grid-2 { grid-template-columns: minmax(0, 1fr); }
+  .theory-interactive__readouts,
+  .brewster-proof__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .theory__toc ol { grid-template-columns: minmax(0, 1fr); }
+}

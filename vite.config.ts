@@ -29,7 +29,9 @@ export default defineConfig({
     allowedHosts: true,
   },
   test: {
-    environment: 'node',
-    include: ['tests/**/*.test.ts'],
+    environment: 'jsdom',
+    setupFiles: ['tests/setup.ts'],
+    include: ['tests/**/*.test.{ts,tsx}'],
+    globals: true,
   },
 } as never);

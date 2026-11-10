@@ -1,0 +1,54 @@
+.ray-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-md);
+  background:
+    radial-gradient(60% 60% at 50% 44%, rgba(24, 44, 82, 0.6), transparent 70%),
+    linear-gradient(180deg, rgba(6, 11, 24, 0.4), rgba(4, 8, 18, 0.75));
+  border: 1px solid var(--hairline);
+}
+
+.ray-diagram--compact { border-radius: var(--r-sm); }
+
+.ray-diagram__tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  fill: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ray-diagram__tag--amber { fill: var(--amber-300); letter-spacing: 0.1em; }
+
+.ray-diagram__angle {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  fill: #ff9d9d;
+  font-variant-numeric: tabular-nums;
+}
+
+.ray-diagram__angle--cyan { fill: var(--cyan-300); }
+
+.ray-diagram__specimen-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  fill: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.ray-diagram__offline {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.16em;
+  fill: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ray-diagram__offline-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  fill: var(--text-faint);
+}
