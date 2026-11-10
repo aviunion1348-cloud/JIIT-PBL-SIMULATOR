@@ -35,7 +35,8 @@ export default function HomePage() {
       n1: result.n1,
       n2: result.n2,
       reflectedFraction: result.fresnel.RUnpolarised,
-      laserOn: introVisible ? true : state.laser.enabled || true,
+      // The hero aperture is always lit: it previews the optics, not a live acquisition.
+      laserOn: true,
       polariserDeg: state.polarisation.inputAngleDeg,
     }),
     [introVisible, portalAngle, result, state.laser.enabled, state.polarisation.inputAngleDeg],

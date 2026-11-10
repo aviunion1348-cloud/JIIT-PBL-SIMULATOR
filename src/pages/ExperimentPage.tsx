@@ -132,28 +132,16 @@ export default function ExperimentPage() {
               </div>
             </div>
 
-            {state.geometry.view === 'side' ? (
-              <OpticalBench
-                result={result}
-                laserOn={state.laser.enabled}
-                view={state.geometry.view}
-                polariserDeg={state.polarisation.inputAngleDeg}
-                inputMode={state.polarisation.inputMode}
-                onPerf={setPerf}
-                onFallback={() => notify('3D unavailable — exact 2D ray bench engaged.')}
-                resetSignal={resetSignal}
-              />
-            ) : (
-              <OpticalBench
-                result={result}
-                laserOn={state.laser.enabled}
-                view={state.geometry.view}
-                polariserDeg={state.polarisation.inputAngleDeg}
-                inputMode={state.polarisation.inputMode}
-                onPerf={setPerf}
-                resetSignal={resetSignal}
-              />
-            )}
+            <OpticalBench
+              result={result}
+              laserOn={state.laser.enabled}
+              view={state.geometry.view}
+              polariserDeg={state.polarisation.inputAngleDeg}
+              inputMode={state.polarisation.inputMode}
+              onPerf={setPerf}
+              onFallback={() => notify('3D unavailable — exact 2D ray bench engaged.')}
+              resetSignal={resetSignal}
+            />
 
             <div className="experiment__bench-foot">
               <span className="note">
