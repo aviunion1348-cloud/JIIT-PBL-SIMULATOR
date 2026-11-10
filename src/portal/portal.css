@@ -627,12 +627,24 @@ body.cursor-custom select { cursor: none; }
   .portal-exp__meta { font-size: 0.52rem; }
 }
 
+/* Short phones (SE-class): the section strip, aperture and title compete for
+   the same 660 px. Shrink the aperture and drop the travel hint, which is
+   redundant once the aperture is the obvious target. */
 @media (max-width: 700px) and (max-height: 700px) {
   .portal-exp { min-height: 0; }
-  .portal-exp__aperture { width: min(180px, 46vw); top: 27%; }
-  .portal-exp__title { font-size: clamp(40px, 11.6vw, 58px); }
+  .portal-exp__aperture { width: min(164px, 42vw); top: 30%; }
+  .portal-exp__button-hint { display: none; }
+  .portal-exp__title { font-size: clamp(38px, 11vw, 52px); }
+  .portal-exp__kicker { margin-bottom: 4px; }
   .portal-exp__fact { padding: 5px 0; font-size: 0.7rem; }
+  .portal-exp__fact dd {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .portal-exp__side { gap: var(--sp-3); }
+  .portal-exp__content { gap: var(--sp-3); }
 }
 
 @media (pointer: coarse) {
